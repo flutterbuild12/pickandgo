@@ -1,4 +1,4 @@
-# anotherrecipeapp
+# pickandgo
 
 A new Flutter project.
 
