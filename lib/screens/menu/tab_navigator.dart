@@ -4,13 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 
 
-
 class TabNavigatorRoutes {
   static const String root = '/';
   static const String detail = '/detail';
 }
-
-
 
 
 
@@ -32,15 +29,15 @@ class _TabNavigatorState extends State<TabNavigator> {
   Widget build(BuildContext context) {
     Widget? child ;
     if(widget.tabItem == "Page1")
-      child = Homepagey(id: widget.id, email: widget.email, rool: widget.rool,);
+      child = Homepage(id: widget.id, email: widget.email, rool: widget.rool,);
     else if(widget.tabItem == "Page2")
-      child = Homepagey(id: widget.id, email: widget.email, rool: widget.rool,);
+      child = Homepage(id: widget.id, email: widget.email, rool: widget.rool,);
 
 
     else if(widget.tabItem == "Page3")
-      child = Homepagey(id: widget.id, email: widget.email, rool: widget.rool,);
+      child = Homepage(id: widget.id, email: widget.email, rool: widget.rool,);
     else if(widget.tabItem == "Page4")
-      child = Homepagey(id: widget.id, email: widget.email, rool: widget.rool,);
+      child = Homepage(id: widget.id, email: widget.email, rool: widget.rool,);
 
     return Navigator(
       key: widget.navigatorKey,

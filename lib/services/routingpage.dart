@@ -36,7 +36,7 @@ class _controState extends State<contro> {
   void initState() {
     super.initState();
     FirebaseFirestore.instance
-        .collection("userz") //.where('uid', isEqualTo: user!.uid)
+        .collection("users") //.where('uid', isEqualTo: user!.uid)
         .doc(user!.uid)
         .get()
         .then((value) {
