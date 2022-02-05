@@ -66,6 +66,7 @@ class _ReceiverDetailsFormState extends State<ReceiverDetailsForm> {
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController recNameController = new TextEditingController();
   final TextEditingController recEmailController = new TextEditingController();
+  final TextEditingController recAddressController = new TextEditingController();
   final TextEditingController recPostalCodeController = new TextEditingController();
   final TextEditingController recContactController = new TextEditingController();
 
@@ -86,7 +87,7 @@ class _ReceiverDetailsFormState extends State<ReceiverDetailsForm> {
               height: MediaQuery
                   .of(context)
                   .size
-                  .height * 0.85,
+                  .height * 0.98,
               child: Center(
                 child: Container(
                   margin: const EdgeInsets.all(22),
@@ -98,7 +99,7 @@ class _ReceiverDetailsFormState extends State<ReceiverDetailsForm> {
                       children: [
                         Expanded(
                           child: Column(
-                            children: <Widget> [
+                            children: const <Widget> [
                               Padding(
                                 padding: EdgeInsets.all(1),
                                 child: Text('Who is receiving the package?',
@@ -141,16 +142,16 @@ class _ReceiverDetailsFormState extends State<ReceiverDetailsForm> {
                             }
                           },
                           onSaved: (value) {
-                            emailController.text = value!;
+                            recNameController.text = value!;
                           },
-                          keyboardType: TextInputType.emailAddress,
+                          keyboardType: TextInputType.name,
                         ),
                         const SizedBox(
                           height: 20,
                         ),
 
                         TextFormField(
-                          controller: emailController,
+                          controller: recEmailController,
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.white,
@@ -174,7 +175,7 @@ class _ReceiverDetailsFormState extends State<ReceiverDetailsForm> {
                             }
                           },
                           onSaved: (value) {
-                            emailController.text = value!;
+                            recEmailController.text = value!;
                           },
                           keyboardType: TextInputType.emailAddress,
                         ),
@@ -182,7 +183,7 @@ class _ReceiverDetailsFormState extends State<ReceiverDetailsForm> {
                           height: 20,
                         ),
                         TextFormField(
-                          controller: emailController,
+                          controller: recAddressController,
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.white,
@@ -205,15 +206,15 @@ class _ReceiverDetailsFormState extends State<ReceiverDetailsForm> {
                             }
                           },
                           onSaved: (value) {
-                            emailController.text = value!;
+                            recAddressController.text = value!;
                           },
-                          keyboardType: TextInputType.emailAddress,
+                          keyboardType: TextInputType.streetAddress,
                         ),
                         const SizedBox(
                           height: 20,
                         ),
                         TextFormField(
-                          controller: emailController,
+                          controller: recPostalCodeController,
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.white,
@@ -236,9 +237,9 @@ class _ReceiverDetailsFormState extends State<ReceiverDetailsForm> {
                             }
                           },
                           onSaved: (value) {
-                            emailController.text = value!;
+                            recPostalCodeController.text = value!;
                           },
-                          keyboardType: TextInputType.emailAddress,
+                          keyboardType: TextInputType.number,
                         ),
 
 
@@ -246,7 +247,7 @@ class _ReceiverDetailsFormState extends State<ReceiverDetailsForm> {
                           height: 20,
                         ),
                         TextFormField(
-                          controller: emailController,
+                          controller: recContactController,
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.white,
@@ -269,9 +270,9 @@ class _ReceiverDetailsFormState extends State<ReceiverDetailsForm> {
                             }
                           },
                           onSaved: (value) {
-                            emailController.text = value!;
+                            recContactController.text = value!;
                           },
-                          keyboardType: TextInputType.emailAddress,
+                          keyboardType: TextInputType.phone,
                         ),
                         const SizedBox(
                           height: 20,

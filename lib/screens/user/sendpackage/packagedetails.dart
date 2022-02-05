@@ -63,8 +63,11 @@ class PackageDetailsForm extends StatefulWidget {
 class _PackageDetailsFormState extends State<PackageDetailsForm> {
   bool visible = false;
   final _formkey = GlobalKey<FormState>();
-  final TextEditingController emailController = new TextEditingController();
-  final TextEditingController passwordController = new TextEditingController();
+  final TextEditingController packageDescController = new TextEditingController();
+  final TextEditingController packageLengthController = new TextEditingController();
+  final TextEditingController packageHeightController = new TextEditingController();
+  final TextEditingController packageWidthController = new TextEditingController();
+  final TextEditingController packageWeightController = new TextEditingController();
 
   final _auth = FirebaseAuth.instance;
 
@@ -115,7 +118,7 @@ class _PackageDetailsFormState extends State<PackageDetailsForm> {
                         ),
 
                         TextFormField(
-                          controller: emailController,
+                          controller: packageDescController,
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.white,
@@ -139,9 +142,9 @@ class _PackageDetailsFormState extends State<PackageDetailsForm> {
                             }
                           },
                           onSaved: (value) {
-                            emailController.text = value!;
+                            packageDescController.text = value!;
                           },
-                          keyboardType: TextInputType.emailAddress,
+                          keyboardType: TextInputType.text,
                         ),
                         const SizedBox(
                           height: 20,
@@ -149,11 +152,11 @@ class _PackageDetailsFormState extends State<PackageDetailsForm> {
                         TextFormField(
                           // maxLines: 5,
                           // minLines: 3,
-                          controller: emailController,
+                          controller: packageLengthController,
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.white,
-                            hintText: 'Package Length',
+                            hintText: 'Package Length (In cm)',
                             enabled: true,
                             contentPadding: const EdgeInsets.only(
                                 left: 14.0, bottom: 8.0, top: 8.0),
@@ -172,19 +175,19 @@ class _PackageDetailsFormState extends State<PackageDetailsForm> {
                             }
                           },
                           onSaved: (value) {
-                            emailController.text = value!;
+                            packageLengthController.text = value!;
                           },
-                          keyboardType: TextInputType.emailAddress,
+                          keyboardType: TextInputType.number,
                         ),
                         const SizedBox(
                           height: 20,
                         ),
                         TextFormField(
-                          controller: emailController,
+                          controller: packageHeightController,
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.white,
-                            hintText: 'Package Height',
+                            hintText: 'Package Height (In cm)',
                             enabled: true,
                             contentPadding: const EdgeInsets.only(
                                 left: 14.0, bottom: 8.0, top: 15.0),
@@ -203,9 +206,9 @@ class _PackageDetailsFormState extends State<PackageDetailsForm> {
                             }
                           },
                           onSaved: (value) {
-                            passwordController.text = value!;
+                            packageHeightController.text = value!;
                           },
-                          keyboardType: TextInputType.emailAddress,
+                          keyboardType: TextInputType.number,
                         ),
 
                         const SizedBox(
@@ -213,11 +216,11 @@ class _PackageDetailsFormState extends State<PackageDetailsForm> {
                         ),
 
                         TextFormField(
-                          controller: emailController,
+                          controller: packageWidthController,
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.white,
-                            hintText: 'Package Width',
+                            hintText: 'Package Width (In cm)',
                             enabled: true,
                             contentPadding: const EdgeInsets.only(
                                 left: 14.0, bottom: 8.0, top: 8.0),
@@ -236,9 +239,9 @@ class _PackageDetailsFormState extends State<PackageDetailsForm> {
                             }
                           },
                           onSaved: (value) {
-                            emailController.text = value!;
+                            packageWidthController.text = value!;
                           },
-                          keyboardType: TextInputType.emailAddress,
+                          keyboardType: TextInputType.number,
                         ),
 
                         const SizedBox(
@@ -246,11 +249,11 @@ class _PackageDetailsFormState extends State<PackageDetailsForm> {
                         ),
 
                         TextFormField(
-                          controller: emailController,
+                          controller: packageWeightController,
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.white,
-                            hintText: 'Package Weight (Max 20kg)',
+                            hintText: 'Package Weight (In kg - Max 20kg)',
                             enabled: true,
                             contentPadding: const EdgeInsets.only(
                                 left: 14.0, bottom: 8.0, top: 8.0),
@@ -269,9 +272,9 @@ class _PackageDetailsFormState extends State<PackageDetailsForm> {
                             }
                           },
                           onSaved: (value) {
-                            emailController.text = value!;
+                            packageWeightController.text = value!;
                           },
-                          keyboardType: TextInputType.emailAddress,
+                          keyboardType: TextInputType.number,
                         ),
                         const SizedBox(
                           height: 30,
