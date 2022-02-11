@@ -1,4 +1,5 @@
 import 'package:pickandgo/models/model.dart';
+import 'package:pickandgo/screens/homepage.dart';
 import 'package:pickandgo/screens/menu/menu.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -52,7 +53,7 @@ class _controState extends State<contro> {
   }
 
   routing() {
-       return Menu(
+       return Homepage(
          rool: loggedInUser.role.toString(),
          email: loggedInUser.email.toString(),
          id: loggedInUser.uid.toString(),
