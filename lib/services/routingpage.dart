@@ -1,6 +1,5 @@
 import 'package:pickandgo/models/model.dart';
 import 'package:pickandgo/screens/homepage.dart';
-import 'package:pickandgo/screens/loginpage.dart';
 import 'package:pickandgo/screens/menu/menu.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -36,25 +35,21 @@ class _controState extends State<contro> {
   var id;
   @override
   void initState() {
-    if (user?.uid != null) {
-      super.initState();
-      FirebaseFirestore.instance
-          .collection("users") //.where('uid', isEqualTo: user!.uid)
-          .doc(user?.uid)
-          .get()
-          .then((value) {
-        this.loggedInUser = UserModel.fromMap(value.data());
-      }).whenComplete(() {
-        CircularProgressIndicator();
-        if(this.mounted) {
-          setState(() {
-            emaill = loggedInUser.email.toString();
-            rooll = loggedInUser.role.toString();
-            id = loggedInUser.uid.toString();
-          });
-        }
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("users") //.where('uid', isEqualTo: user!.uid)
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      this.loggedInUser = UserModel.fromMap(value.data());
+    }).whenComplete(() {
+      CircularProgressIndicator();
+      setState(() {
+        emaill = loggedInUser.email.toString();
+        rooll = loggedInUser.role.toString();
+        id = loggedInUser.uid.toString();
       });
-    }
+    });
   }
 
   routing() {

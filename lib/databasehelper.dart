@@ -1,5 +1,4 @@
 import 'package:pickandgo/models/recipe.dart';
-import 'package:pickandgo/screens/loginpage.dart';
 import 'package:pickandgo/services/routingpage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as u;
@@ -46,7 +45,7 @@ class DatabaseHelper{
 
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (context) => LoginPage(),
+        builder: (context) => RoutePage(),
       ),
     );
   }
