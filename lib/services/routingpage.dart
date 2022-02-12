@@ -54,21 +54,6 @@ class _controState extends State<contro> {
         }
       });
     }
-    super.initState();
-    FirebaseFirestore.instance
-        .collection("users") //.where('uid', isEqualTo: user!.uid)
-        .doc(user!.uid)
-        .get()
-        .then((value) {
-      this.loggedInUser = UserModel.fromMap(value.data());
-    }).whenComplete(() {
-      CircularProgressIndicator();
-      setState(() {
-        emaill = loggedInUser.email.toString();
-        rooll = loggedInUser.role.toString();
-        id = loggedInUser.uid.toString();
-      });
-    });
   }
 
   routing() {
