@@ -1,16 +1,33 @@
 import 'package:pickandgo/models/recipe.dart';
 import 'package:pickandgo/screens/loginpage.dart';
-import 'package:pickandgo/services/routingpage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as u;
 import 'package:flutter/material.dart';
 
+import 'models/model.dart';
+
 class DatabaseHelper{
 
+  //getUser
+  Future<UserModel?> getUser({required String userId}) async {
+    print('userId:$userId');
+
+    if(userId.isNotEmpty) {
+      final userDoc = await FirebaseFirestore.instance.collection('users').doc(userId).get();
+      if(!userDoc.exists){
+        print('no user with id $userId');
+        return null;
+      }
+      final userData = userDoc.data();
+      print('user found. Data $userData');
+      return UserModel.fromMap(userData!);
+    } else {
+     print('User id is empty');
+    }
+  }
 
   //insert a recipe
   Future createRecipe(Recipe recipe) async{
-
     final docUser = FirebaseFirestore.instance.collection('recipe').doc();
     recipe.id = docUser.id;
     final json = recipe.toJson();

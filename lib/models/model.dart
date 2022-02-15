@@ -9,6 +9,7 @@ class UserModel {
 // receiving data
   UserModel(
       {this.uid, this.email, this.role, this.name, this.mobile, this.address});
+
   factory UserModel.fromMap(map) {
     return UserModel(
       uid: map['uid'],

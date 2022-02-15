@@ -1,14 +1,23 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:pickandgo/models/model.dart';
 import 'package:pickandgo/provider/google_sign_in.dart';
 import 'package:pickandgo/screens/register.dart';
 import 'package:pickandgo/services/routingpage.dart';
 import 'package:provider/provider.dart';
 import 'package:universal_io/io.dart' as u;
 
+import 'operationalcenter/dashboard.dart';
+
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
+  // final String rool;
+  // final String email;
+  // final String id;
+  //
+  // AdminProfile({required this.rool, required this.email, required this.id});
 }
 
 class _LoginPageState extends State<LoginPage> {
@@ -17,8 +26,8 @@ class _LoginPageState extends State<LoginPage> {
   final _formkey = GlobalKey<FormState>();
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
-
   final _auth = FirebaseAuth.instance;
+
 
   @override
   Widget build(BuildContext context) {
@@ -281,7 +290,7 @@ class _LoginPageState extends State<LoginPage> {
                                 Padding(
                                   padding: EdgeInsets.all(1.0),
                                   child: Image.asset(
-                                    "assets/logo2.png",
+                                    "assets/logo.png",
                                     height: 300,
                                     width: 200,
                                   ),
@@ -514,17 +523,30 @@ class _LoginPageState extends State<LoginPage> {
       //if valid this code block will run
       try {
         UserCredential userCredential =
-            await FirebaseAuth.instance.signInWithEmailAndPassword(
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,
           password: password,
         );
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => RoutePage(),
-          ),
-        );
-        print("Logged in Successfully with ${email} and $password");
+        User? user = FirebaseAuth.instance.currentUser;
+        UserModel loggedInUser = UserModel();
+
+        if (email == 'admin@gmail.com' || email == 'admin2@gmail.com') {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Dashboard(email: '', rool: '', id: '',),
+            ),
+          );
+          print("Logged in Successfully with ${email} and $password");
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => RoutePage(),
+            ),
+          );
+          print("Logged in Successfully with ${email} and $password");
+        }
       }
       //if invalid catch the error
       on FirebaseAuthException catch (e) {
