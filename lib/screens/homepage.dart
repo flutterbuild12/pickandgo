@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pickandgo/models/sendpackage.dart';
+import 'package:pickandgo/screens/operationalcenter/dashboard.dart';
 import 'package:pickandgo/screens/user/recievepackage/trackpackage.dart';
 import 'package:pickandgo/screens/user/sendpackage/receiverdetails.dart';
 
@@ -102,6 +103,26 @@ class _HomepageState extends State<Homepage> {
                 );
               },
               child: const Text('Receive Package'),
+
+            ),
+          ),
+          SizedBox(
+            height: 80,
+          ),
+          Container(
+            height: 60.0,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              color: Colors.amber,
+            ),
+            child:  ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Dashboard(id: widget.id, email: widget.email, rool: widget.rool,)),
+                );
+              },
+              child: const Text('Operational Center'),
             ),
             // child: const Padding(
             //   padding: EdgeInsets.only(left: 15.0),
