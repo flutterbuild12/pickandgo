@@ -1,8 +1,11 @@
 import 'package:pickandgo/models/model.dart';
-import 'package:pickandgo/screens/homepage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:pickandgo/screens/dropoffdriver/dropoffdriverdroppackageonreceiver.dart';
+import 'package:pickandgo/screens/pickupdriver/pickuprequests.dart';
+import 'package:pickandgo/screens/operationalcenter/opc_dashboard.dart';
+import 'package:pickandgo/screens/operationalcenter/opc_assigndropoffdriver.dart';
 
 
 class RoutePage extends StatefulWidget {
@@ -29,9 +32,11 @@ class _controState extends State<contro> {
   _controState();
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
-  var rooll;
+  var role;
   var emaill;
   var id;
+  var driveroccupied;
+  var operationalcenterid;
   @override
   void initState() {
 
@@ -48,8 +53,10 @@ class _controState extends State<contro> {
         if(this.mounted) {
           setState(() {
             emaill = loggedInUser.email.toString();
-            rooll = loggedInUser.role.toString();
+            role = loggedInUser.role.toString();
             id = loggedInUser.uid.toString();
+            driveroccupied = loggedInUser.driveroccupied;
+            operationalcenterid = loggedInUser.operationalcenterid.toString();
           });
         }
       });
@@ -57,12 +64,44 @@ class _controState extends State<contro> {
   }
 
   routing() {
-    return Homepage(
-      rool: loggedInUser.role.toString(),
-      email: loggedInUser.email.toString(),
-      id: loggedInUser.uid.toString(),
-      //     id: id,
-    );
+
+    return
+      (role == "Driver")
+          ?PickupDriverPickupRequests.driver(
+        role: loggedInUser.role.toString(),
+        email: loggedInUser.email.toString(),
+        id: loggedInUser.uid.toString(),
+        name: loggedInUser.name.toString(),
+        driveroccupied: loggedInUser.driveroccupied,
+        operationalcenterid: loggedInUser.operationalcenterid.toString(),
+        //     id: id,
+      ):
+      (role == "OperationalCenter")
+          ?Dashboard(
+        loggedInUser.uid.toString(),
+        loggedInUser.operationalcenterid.toString(),
+        loggedInUser.email.toString(),
+        loggedInUser.name.toString(),
+        loggedInUser.mobile.toString(),
+        loggedInUser.status.toString(),
+        loggedInUser.address.toString(),
+        loggedInUser.uid.toString(),
+        //     id: id,
+      ):
+      (role == "DropoffDriver")
+          ?DropPackagesDropOffDriver(
+        loggedInUser.uid.toString(),
+        loggedInUser.operationalcenterid.toString(),
+
+      ):
+      PickupDriverPickupRequests(
+        loggedInUser.uid.toString(),
+        loggedInUser.email.toString(),
+        loggedInUser.role.toString(),
+        loggedInUser.name.toString(),
+        //id: id,
+      );
+
   }
 
   @override
