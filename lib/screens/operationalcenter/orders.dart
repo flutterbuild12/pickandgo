@@ -1,6 +1,7 @@
 
 import 'package:pickandgo/databasehelper.dart';
 import 'package:flutter/material.dart';
+import 'package:pickandgo/screens/operationalcenter/searchPackage.dart';
 import 'package:pickandgo/screens/operationalcenter/widgets/navigationdrawer.dart';
 
 
@@ -48,7 +49,22 @@ class _OrdersState extends State<Orders> {
                     ),
                     Text('Orders',
                       style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600),),
+
+
                   ],
+                ),
+
+              ),
+              MaterialButton(
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPackage()));
+                },
+                color: Colors.black,
+                shape: StadiumBorder(),
+                child: Text("Update Package Details",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
               ),
 
