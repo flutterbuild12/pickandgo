@@ -1,8 +1,8 @@
 import 'package:pickandgo/provider/google_sign_in.dart';
-import 'package:pickandgo/screens/homepage.dart';
-import 'package:pickandgo/screens/loginpage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:pickandgo/screens/loginpage.dart';
+import 'package:pickandgo/screens/user/homepage.dart';
 import 'package:provider/provider.dart';
 import 'package:universal_io/io.dart' as u;
 
@@ -38,7 +38,9 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: LoginPage(),
+           //home: Homepage(role: '', address: '', name: '', mobile: '', email: '', id: '',),
+           home: LoginPage(),
         ),
       );
+
 }

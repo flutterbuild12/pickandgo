@@ -1,23 +1,44 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:pickandgo/screens/pickupdriver/pickuprequests.dart';
 import 'package:pickandgo/screens/loginpage.dart';
-import 'package:pickandgo/screens/operationalcenter/dashboard.dart';
 import 'package:pickandgo/screens/operationalcenter/deliverypersons.dart';
 import '../../../databasehelper.dart';
-import '../adminprofile.dart';
-import '../branches.dart';
-import '../orders.dart';
+import '../pickupdriverdashboard.dart';
+import '../pickupdriverprofile.dart';
+import '../pickuppastdeliveries.dart';
+
 
 
 class NavigationDrawerWidget extends StatelessWidget {
   final padding = EdgeInsets.symmetric(horizontal: 20);
-  final String rool;
+
+  final String role;
   final String email;
   final String id;
+  final String name;
+  bool? driveroccupied;
+  String? operationalcenterid;
+  // final String mobile;
+  // final String address;
+
+  NavigationDrawerWidget(
+      {
+        required this.role,
+        required this.email,
+        required this.id,
+        required this.name,
+        this.driveroccupied,
+        this.operationalcenterid
+        // required this.mobile,
+        // required this.address
+      });
+
+
+
+
 
   final admin_email = FirebaseAuth.instance.currentUser?.email;
-
-  NavigationDrawerWidget({required this.rool, required this.email, required this.id});
 
   @override
 
@@ -26,6 +47,7 @@ class NavigationDrawerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     // final name = 'Admin';
     // final email = 'admin@pickandgo.lk';
+
     final urlImage =
         'https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg';
 
@@ -37,10 +59,10 @@ class NavigationDrawerWidget extends StatelessWidget {
           children: <Widget>[
             buildHeader(
               urlImage: urlImage,
-              name: "Admin",
-              email: "${admin_email}",
+              name: "${name}",
+              email: "${email}",
               onClicked: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => AdminProfile(id: id, email: email, rool: rool,),
+                builder: (context) =>  PickupDriverProfile(id: id, name: name, email: email, role: role, driveroccupied: driveroccupied, operationalcenterid: operationalcenterid),
               )),
             ),
             Container(
@@ -57,30 +79,24 @@ class NavigationDrawerWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   buildMenuItem(
-                    text: 'Orders',
-                    icon: Icons.local_shipping,
+                    text: 'Pickup Requests',
+                    icon: Icons.notifications_active,
                     onClicked: () => selectedItem(context, 1),
                   ),
                   const SizedBox(height: 16),
                   buildMenuItem(
-                    text: 'Delivery Persons',
-                    icon: Icons.people,
+                    text: 'Past Deliveries',
+                    icon: Icons.check_circle_outline,
                     onClicked: () => selectedItem(context, 2),
                   ),
                   const SizedBox(height: 16),
                   buildMenuItem(
-                    text: 'Branches',
-                    icon: Icons.account_tree_outlined,
+                    text: 'Profile',
+                    icon: Icons.person,
                     onClicked: () => selectedItem(context, 3),
                   ),
                   const SizedBox(height: 24),
                   Divider(color: Colors.white70),
-                  // const SizedBox(height: 24),
-                  // buildMenuItem(
-                  //   text: 'Plugins',
-                  //   icon: Icons.account_tree_outlined,
-                  //   onClicked: () => selectedItem(context, 4),
-                  // ),
                   const SizedBox(height: 16),
                   buildMenuItem(
                     text: 'Logout',
@@ -158,22 +174,22 @@ class NavigationDrawerWidget extends StatelessWidget {
     switch (index) {
       case 0:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Dashboard(id: id, email: email, rool: rool,),
+          builder: (context) => PickupDriverDashboard(name: name, id: id, email: email, role: role, driveroccupied: driveroccupied, operationalcenterid: operationalcenterid),
         ));
         break;
       case 1:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Orders(id: id, email: email, rool: rool,),
+          builder: (context) => PickupDriverPickupRequests.driver(name: name, id: id, email: email, role: role, driveroccupied: driveroccupied, operationalcenterid: operationalcenterid),
         ));
         break;
       case 2:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => DeliveryPersons(id: id, email: email, rool: rool,),
+          builder: (context) => PickupPastDeliveries(id: id, name: name, email: email, role: role, driveroccupied: driveroccupied, operationalcenterid: operationalcenterid),
         ));
         break;
       case 3:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Branches(id: id, email: email, rool: rool,),
+          builder: (context) => PickupDriverProfile(id: id, name: name, email: email, role: role, driveroccupied: driveroccupied, operationalcenterid: operationalcenterid),
         ));
         break;
       case 4:

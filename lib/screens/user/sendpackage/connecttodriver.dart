@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pickandgo/databasehelper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pickandgo/screens/homepage.dart';
+import 'package:pickandgo/screens/user/homepage.dart';
 import 'package:pickandgo/screens/user/sendpackage/packagedetails.dart';
 
 import 'package:pickandgo/services/routingpage.dart';
@@ -59,18 +59,18 @@ class _ConnectToDriverState extends State<ConnectToDriver> {
             },
           ),
           //title: Text('${widget.packageDesc}'),
-          actions: [
-            IconButton(
-              onPressed: () {
-                _db.logout(context);
-                Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
-                  builder: (_) => RoutePage(),
-                ),
-                );
-              },
-              icon: Icon(Icons.logout),
-            ),
-          ],
+          // actions: [
+          //   IconButton(
+          //     onPressed: () {
+          //       _db.logout(context);
+          //       Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+          //         builder: (_) => RoutePage(),
+          //       ),
+          //       );
+          //     },
+          //     icon: Icon(Icons.logout),
+          //   ),
+          // ],
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -97,7 +97,7 @@ class _ConnectToDriverState extends State<ConnectToDriver> {
                             children: const <Widget> [
                               Padding(
                                 padding:  EdgeInsets.all(1),
-                                child: Text('Connecting you to driver...',
+                                child: Text('Connecting you to pickupdriver...',
                                   style: TextStyle(fontSize: 40.0),),
                               ),
                               SizedBox(
@@ -205,8 +205,8 @@ class _ConnectToDriverState extends State<ConnectToDriver> {
                             ),
                           ],
                         ),
-                        Text('${widget.receiverName}, ${widget.receiverEmail}, ${widget.receiverAddress}'),
-                        Text('${widget.packageDesc}, ${widget.packageLength}, ${widget.packageHeight},'),
+                        // Text('${widget.receiverName}, ${widget.receiverEmail}, ${widget.receiverAddress}'),
+                        // Text('${widget.packageDesc}, ${widget.packageLength}, ${widget.packageHeight},'),
                         const SizedBox(
                           height: 20,
                         ),

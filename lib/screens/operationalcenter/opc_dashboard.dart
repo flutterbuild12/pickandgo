@@ -1,18 +1,29 @@
 import 'package:pickandgo/databasehelper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pickandgo/screens/operationalcenter/widgets/navigationdrawer.dart';
-
+import 'package:pickandgo/screens/operationalcenter/widgets/navigationdrawercenter.dart';
 
 
 class Dashboard extends StatefulWidget {
-  final String rool;
-  final String email;
-  final String id;
+  String? uid;
+  String? operationalcenterid;
+  String? email;
+  String? name;
+  String? mobile;
+  String? address;
+  String? status;
+  String driverid;
 
-  Dashboard({required this.rool, required this.email, required this.id});
-
-  //const Homepagey({Key? key}) : super(key: key);
+  //constructor
+  Dashboard(
+      this.uid,
+      this.name,
+      this.email,
+      this.mobile,
+      this.address,
+      this.status,
+      this.operationalcenterid,
+      this.driverid);
 
   @override
   _DashboardState createState() => _DashboardState();
@@ -20,16 +31,18 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
 
+
   DatabaseHelper _db = DatabaseHelper();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold (
-          drawer: NavigationDrawerWidget(id: widget.id, email: widget.email, rool: widget.rool,),
+          drawer: NavigationDrawerWidgetCenter(widget.uid, widget.operationalcenterid, widget.name, widget.email!,
+              widget.mobile!, widget.status!, widget.address!, widget.driverid),
           appBar: AppBar(
             backgroundColor: Colors.black87,
-            title: Text('Pick and Go'),
+            title: Text('PickandGO - Operational Center'),
             // actions: [
             //   IconButton(
             //     onPressed: () {
@@ -59,7 +72,7 @@ class _DashboardState extends State<Dashboard> {
                     width: 3.0,
                   ),
                   Text('Dashboard',
-                    style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600),),
+                    style: TextStyle(fontSize: 21.0, fontWeight: FontWeight.w600),),
                 ],),),
               SizedBox(
                 height: 20,

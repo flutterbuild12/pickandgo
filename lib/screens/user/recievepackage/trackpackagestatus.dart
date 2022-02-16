@@ -35,18 +35,18 @@ class _TrackPackageStatusState extends State<TrackPackageStatus> {
         appBar: AppBar(
           backgroundColor: Colors.black87,
           title: Text('Track Package Status'),
-          actions: [
-            IconButton(
-              onPressed: () {
-                _db.logout(context);
-                Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
-                  builder: (_) => TrackPackageForm(),
-                ),
-                );
-              },
-              icon: Icon(Icons.logout),
-            ),
-          ],
+          // actions: [
+          //   IconButton(
+          //     onPressed: () {
+          //       _db.logout(context);
+          //       Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+          //         builder: (_) => TrackPackageForm(),
+          //       ),
+          //       );
+          //     },
+          //     icon: Icon(Icons.logout),
+          //   ),
+          // ],
         ),
         body: TrackPackageForm(),
       ),
