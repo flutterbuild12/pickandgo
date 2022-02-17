@@ -13,6 +13,13 @@ class UpdatePackage extends StatefulWidget {
 
 class _UpdatePackageState extends State<UpdatePackage> {
 
+  final TextEditingController _pickupAddress = TextEditingController();
+  final TextEditingController _recieverAddress = TextEditingController();
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _total = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _mobile = TextEditingController();
+
   bool _pickUpReqValue = true;
   bool _packagepickedUpValue = true;
   bool _packageDroppedOperationalCenterValue = true;
@@ -31,6 +38,14 @@ class _UpdatePackageState extends State<UpdatePackage> {
               if(snapshot.hasData){
                 var data = snapshot.data!;
 
+                _pickupAddress.text = data['pickupAddress'];
+                _recieverAddress.text = data['receiverAddress'];
+                _name.text = data['receiverName'];
+                _total.text = data['totalCost'].toString();
+                _email.text = data['receiverEmail'];
+                _mobile.text = data['receiverContactNo'];
+
+
                 _pickUpReqValue = data['pickupreqaccepted'];
                 _packagepickedUpValue = data['packagePickedUp'];
                 _packageDroppedOperationalCenterValue = data['packageDroppedOperationalCenter'];
@@ -39,33 +54,106 @@ class _UpdatePackageState extends State<UpdatePackage> {
 
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: ListView(
                     children: [
                       SizedBox(
-                        height: 10,
+                        height: 40,
                       ),
-                      Text("Pickup Address : ${data['pickupAddress']}"),
+                      TextFormField(
+                        controller: _pickupAddress,
+                        readOnly: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          filled: true,
+                          labelStyle: TextStyle(color: Colors.grey[800]),
+                          labelText: "Pickup Address",
+                          fillColor: Colors.white70,
+                        ),
+                        maxLines: 2,
+                      ),
                       SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
-                      Text("Receiver Address : ${data['receiverAddress']}"),
+                      TextFormField(
+                        controller: _recieverAddress,
+                        readOnly: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          filled: true,
+                          labelStyle: TextStyle(color: Colors.grey[800]),
+                          labelText: "Receiver Address",
+                          fillColor: Colors.white70,
+                        ),
+                        maxLines: 2,
+                      ),
                       SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
-                      Text("Receiver Name : ${data['receiverName']}"),
+                      TextFormField(
+                        controller: _name,
+                        readOnly: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          filled: true,
+                          labelStyle: TextStyle(color: Colors.grey[800]),
+                          labelText: "Receiver Name",
+                          fillColor: Colors.white70,
+                        ),
+                      ),
                       SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
-                      Text("Total Cost : ${data['totalCost']}"),
+                      TextFormField(
+                        controller: _total,
+                        readOnly: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          filled: true,
+                          labelStyle: TextStyle(color: Colors.grey[800]),
+                          labelText: "Total Cost",
+                          fillColor: Colors.white70,
+                        ),
+                      ),
                       SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
-                      Text("Email : ${data['receiverEmail']}"),
+                      TextFormField(
+                        controller: _email,
+                        readOnly: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          filled: true,
+                          labelStyle: TextStyle(color: Colors.grey[800]),
+                          labelText: "Email Address",
+                          fillColor: Colors.white70,
+                        ),
+                      ),
                       SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
-                      Text("Mobile : ${data['receiverContactNo']}"),
+                      TextFormField(
+                        controller: _mobile,
+                        readOnly: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          filled: true,
+                          labelStyle: TextStyle(color: Colors.grey[800]),
+                          labelText: "Contact Number",
+                          fillColor: Colors.white70,
+                        ),
+                      ),
                       SizedBox(
                         height: 10,
                       ),
