@@ -1,13 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pickandgo/screens/loginpage.dart';
-import 'package:pickandgo/screens/user/recievepackage/trackpackage.dart';
+import 'package:pickandgo/screens/user/sendpackage/customerPackagesList.dart';
 import 'package:pickandgo/screens/user/sendpackage/receiverdetails.dart';
 
 import '../../../databasehelper.dart';
 import '../homepage.dart';
-import '../pastorders.dart';
+import '../makeacall/makeACall.dart';
 import '../profile.dart';
+import '../recievepackage/senderdetails.dart';
+import '../sendpackage/customerPastPackagesList.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
   final padding = EdgeInsets.symmetric(horizontal: 20);
@@ -33,8 +34,6 @@ class NavigationDrawerWidget extends StatelessWidget {
     final urlImage =
         'https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg';
 
-    final user_email = FirebaseAuth.instance.currentUser?.email;
-
     return Drawer(
       child: Material(
         color: Colors.black87,
@@ -42,8 +41,8 @@ class NavigationDrawerWidget extends StatelessWidget {
           children: <Widget>[
             buildHeader(
               urlImage: urlImage,
-              name: "User${name}",
-              email: "user email ${user_email}",
+              name: "User",
+              email: "${email}",
               onClicked: () => Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => EditCustomerDetails(
                   uid: id,
@@ -64,7 +63,7 @@ class NavigationDrawerWidget extends StatelessWidget {
                   // const SizedBox(height: 24),
                   buildMenuItem(
                     text: 'Home',
-                    icon: Icons.home_rounded,
+                    icon: Icons.dashboard,
                     onClicked: () => selectedItem(context, 0),
                   ),
                   const SizedBox(height: 16),
@@ -76,14 +75,26 @@ class NavigationDrawerWidget extends StatelessWidget {
                   const SizedBox(height: 16),
                   buildMenuItem(
                     text: 'Receive Package',
-                    icon: Icons.people,
+                    icon: Icons.call_received_rounded,
                     onClicked: () => selectedItem(context, 2),
                   ),
                   const SizedBox(height: 16),
                   buildMenuItem(
-                    text: 'Past Orders',
-                    icon: Icons.where_to_vote,
+                    text: 'Onging Orders',
+                    icon: Icons.pending_rounded,
                     onClicked: () => selectedItem(context, 3),
+                  ),
+                  const SizedBox(height: 16),
+                  buildMenuItem(
+                    text: 'Past Orders',
+                    icon: Icons.check_circle_outline,
+                    onClicked: () => selectedItem(context, 4),
+                  ),
+                  const SizedBox(height: 16),
+                  buildMenuItem(
+                    text: 'Make a Call',
+                    icon: Icons.phone,
+                    onClicked: () => selectedItem(context, 5),
                   ),
                   const SizedBox(height: 24),
                   Divider(color: Colors.white70),
@@ -97,7 +108,7 @@ class NavigationDrawerWidget extends StatelessWidget {
                   buildMenuItem(
                     text: 'Logout',
                     icon: Icons.logout,
-                    onClicked: () => selectedItem(context, 4),
+                    onClicked: () => selectedItem(context, 6),
                   ),
                 ],
               ),
@@ -181,24 +192,30 @@ class NavigationDrawerWidget extends StatelessWidget {
         break;
       case 1:
         Navigator.of(context).push(MaterialPageRoute(
-          ///send package
           builder: (context) => ReceiverDetails(),
         ));
         break;
       case 2:
         Navigator.of(context).push(MaterialPageRoute(
-          ///receive package
-          builder: (context) => TrackPackage(),
+          builder: (context) => SenderDetails(),
         ));
         break;
       case 3:
         Navigator.of(context).push(MaterialPageRoute(
-          ///receive package
-          builder: (context) => PastOrders(),
+          builder: (context) => ReceivedPackageList(),
         ));
         break;
       case 4:
-        ///logout
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => CustomerPastPackagesList(),
+        ));
+        break;
+      case 5:
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => MakeACall(),
+        ));
+        break;
+      case 6:
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => LoginPage(),
         ));

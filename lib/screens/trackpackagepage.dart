@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:pickandgo/screens/loginpage.dart';
+import 'package:pickandgo/screens/receivertracking.dart';
 import 'package:pickandgo/services/routingpage.dart';
 
 import '../../../databasehelper.dart';
@@ -17,8 +20,17 @@ class _TrackPackageState extends State<TrackPackage> {
 
   DatabaseHelper _db = DatabaseHelper();
 
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _requestPermission();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final controllers = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black87,
@@ -30,7 +42,7 @@ class _TrackPackageState extends State<TrackPackage> {
               onPressed: () {
                 Navigator.of(context, rootNavigator: true).push(
                   MaterialPageRoute(
-                    builder: (_) => RoutePage(),
+                    builder: (_) => LoginPage(),
                   ),
                 );
               },
@@ -38,21 +50,8 @@ class _TrackPackageState extends State<TrackPackage> {
             );
           },
         ),
-        // actions: [
-        //   IconButton(
-        //     onPressed: () {
-        //       _db.logout(context);
-        //       Navigator.of(context, rootNavigator: true).push(
-        //         MaterialPageRoute(
-        //           builder: (_) => RoutePage(),
-        //         ),
-        //       );
-        //     },
-        //     icon: Icon(Icons.logout),
-        //   ),
-        // ],
       ),
-      resizeToAvoidBottomInset: false,
+
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -75,7 +74,7 @@ class _TrackPackageState extends State<TrackPackage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
               child: Text(
-                "Pic & Go is Sri Lanka's no 01 unique delivery service. We offering the cheapest, quickest and safest service in door to door delivery.",
+                "Pick & Go is Sri Lanka's no 01 unique delivery service. We offering the cheapest, quickest and safest service in door to door delivery.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 15,
@@ -94,6 +93,7 @@ class _TrackPackageState extends State<TrackPackage> {
                     hintStyle: TextStyle(color: Colors.grey[800]),
                     hintText: "Enter tracking code",
                     fillColor: Colors.white70),
+                controller: controllers,
               ),
             ),
             const SizedBox(height: 20),
@@ -107,7 +107,18 @@ class _TrackPackageState extends State<TrackPackage> {
                         RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),
                             side: const BorderSide(color: Colors.black)))),
-                onPressed: () {},
+                onPressed: () {
+
+
+                  Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => ReceiverTracking(
+                              controllers.text)));
+
+
+
+
+                },
                 child: const Text(
                   'Track',
                   style: TextStyle(
@@ -121,5 +132,18 @@ class _TrackPackageState extends State<TrackPackage> {
         ),
       ),
     );
+  }
+
+
+
+  _requestPermission() async {
+    var status = await Permission.location.request();
+    if (status.isGranted) {
+      print('done');
+    } else if (status.isDenied) {
+      _requestPermission();
+    } else if (status.isPermanentlyDenied) {
+      openAppSettings();
+    }
   }
 }

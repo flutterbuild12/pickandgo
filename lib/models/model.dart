@@ -50,7 +50,15 @@ class UserModel {
 
 // receiving data
   UserModel(
-      {this.uid, this.email, this.role, this.name, this.driveroccupied, this.operationalcenterid, this.mobile, this.address, this.status});
+      {this.uid,
+      this.email,
+      this.role,
+      this.name,
+      this.driveroccupied,
+      this.operationalcenterid,
+      this.mobile,
+      this.address,
+      this.status});
   factory UserModel.fromMap(map) {
     return UserModel(
       uid: map['uid'],
@@ -78,4 +86,16 @@ class UserModel {
       'status': status,
     };
   }
+
+  static UserModel fromJson(Map<String, dynamic> json) => UserModel(
+        uid: json['uid'],
+        email: json['email'],
+        role: json['role'],
+        name: json['name'],
+        mobile: json['mobile'],
+        address: json['address'],
+        driveroccupied: json['driveroccupied'],
+        operationalcenterid: json['operationalcenterid'],
+        status: json['status'],
+      );
 }
