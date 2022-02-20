@@ -5,18 +5,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:pickandgo/databasehelper.dart';
+import 'package:pickandgo/screens/user/recievepackage/senderPackageDetails.dart';
 import 'package:pickandgo/screens/user/sendpackage/packagedetails.dart';
 import 'package:pickandgo/services/routingpage.dart';
 import 'package:universal_io/io.dart' as u;
 import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
 
-class ReceiverDetails extends StatefulWidget {
+class SenderDetails extends StatefulWidget {
+  const SenderDetails({Key? key}) : super(key: key);
+
   @override
-  _ReceiverDetailsState createState() => _ReceiverDetailsState();
+  State<SenderDetails> createState() => _SenderDetailsState();
 }
 
-class _ReceiverDetailsState extends State<ReceiverDetails> {
+class _SenderDetailsState extends State<SenderDetails> {
   bool visible = false;
   final _formkey = GlobalKey<FormState>();
   final TextEditingController recNameController = TextEditingController();
@@ -131,7 +134,7 @@ class _ReceiverDetailsState extends State<ReceiverDetails> {
                                       Padding(
                                         padding: EdgeInsets.all(1),
                                         child: Text(
-                                          'Who is receiving the package?',
+                                          'Who is sending the package?',
                                           style: TextStyle(fontSize: 40.0),
                                         ),
                                       ),
@@ -139,7 +142,7 @@ class _ReceiverDetailsState extends State<ReceiverDetails> {
                                         height: 20.0,
                                       ),
                                       Text(
-                                        'The driver may contact the recipient to complete the delivery.',
+                                        'The driver may contact the sender to pickup the package.',
                                         style: TextStyle(fontSize: 17.0),
                                       ),
                                       SizedBox(
@@ -153,7 +156,7 @@ class _ReceiverDetailsState extends State<ReceiverDetails> {
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Colors.white,
-                                    hintText: 'Receiver Name',
+                                    hintText: 'Sender Name',
                                     enabled: true,
                                     contentPadding: const EdgeInsets.only(
                                         left: 14.0, bottom: 8.0, top: 8.0),
@@ -172,7 +175,7 @@ class _ReceiverDetailsState extends State<ReceiverDetails> {
                                   ),
                                   validator: (value) {
                                     if (value!.length == 0) {
-                                      return "Receiver name cannot be empty";
+                                      return "Sender name cannot be empty";
                                     }
                                   },
                                   onSaved: (value) {
@@ -191,7 +194,7 @@ class _ReceiverDetailsState extends State<ReceiverDetails> {
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Colors.white,
-                                    hintText: 'Receiver Email',
+                                    hintText: 'Sender Email',
                                     enabled: true,
                                     contentPadding: const EdgeInsets.only(
                                         left: 14.0, bottom: 8.0, top: 8.0),
@@ -210,7 +213,7 @@ class _ReceiverDetailsState extends State<ReceiverDetails> {
                                   ),
                                   validator: (value) {
                                     if (value!.length == 0) {
-                                      return "Receiver email cannot be empty";
+                                      return "Sender email cannot be empty";
                                     }
                                   },
                                   onSaved: (value) {
@@ -261,7 +264,7 @@ class _ReceiverDetailsState extends State<ReceiverDetails> {
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Colors.white,
-                                    hintText: "Receiver Address",
+                                    hintText: "Sender Address",
                                     enabled: true,
                                     focusColor: Colors.white,
                                     contentPadding: const EdgeInsets.only(
@@ -290,7 +293,7 @@ class _ReceiverDetailsState extends State<ReceiverDetails> {
                                   ),
                                   validator: (value) {
                                     if (value!.isEmpty) {
-                                      return "Receiver address cannot be empty";
+                                      return "Sender address cannot be empty";
                                     }
                                   },
                                   onSaved: (value) {
@@ -341,7 +344,7 @@ class _ReceiverDetailsState extends State<ReceiverDetails> {
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Colors.white,
-                                    hintText: 'Receiver Postal Code',
+                                    hintText: 'Sender Postal Code',
                                     enabled: true,
                                     contentPadding: const EdgeInsets.only(
                                         left: 14.0, bottom: 8.0, top: 15.0),
@@ -360,7 +363,7 @@ class _ReceiverDetailsState extends State<ReceiverDetails> {
                                   ),
                                   validator: (value) {
                                     if (value!.isEmpty) {
-                                      return "Receiver postal code cannot be empty";
+                                      return "Sender postal code cannot be empty";
                                     }
                                   },
                                   onSaved: (value) {
@@ -376,7 +379,7 @@ class _ReceiverDetailsState extends State<ReceiverDetails> {
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Colors.white,
-                                    hintText: 'Receiver Contact No',
+                                    hintText: 'Sender Contact No',
                                     enabled: true,
                                     contentPadding: const EdgeInsets.only(
                                         left: 14.0, bottom: 8.0, top: 8.0),
@@ -395,7 +398,7 @@ class _ReceiverDetailsState extends State<ReceiverDetails> {
                                   ),
                                   validator: (value) {
                                     if (value!.length == 0) {
-                                      return "Receiver contact number cannot be empty";
+                                      return "Sender contact number cannot be empty";
                                     }
                                   },
                                   onSaved: (value) {
@@ -429,7 +432,7 @@ class _ReceiverDetailsState extends State<ReceiverDetails> {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  PackageDetails(
+                                                  SenderPackageDetails(
                                                       recNameController.text,
                                                       recEmailController.text,
                                                       _controller.text,

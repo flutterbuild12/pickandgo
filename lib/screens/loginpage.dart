@@ -1,23 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:pickandgo/models/model.dart';
-import 'package:pickandgo/provider/google_sign_in.dart';
 import 'package:pickandgo/screens/register.dart';
+import 'package:pickandgo/screens/trackpackagepage.dart';
+import 'package:pickandgo/screens/user/recievepackage/senderdetails.dart';
 import 'package:pickandgo/services/routingpage.dart';
-import 'package:provider/provider.dart';
 import 'package:universal_io/io.dart' as u;
-
-import 'operationalcenter/dashboard.dart';
 
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
-  // final String rool;
-  // final String email;
-  // final String id;
-  //
-  // AdminProfile({required this.rool, required this.email, required this.id});
 }
 
 class _LoginPageState extends State<LoginPage> {
@@ -26,8 +17,8 @@ class _LoginPageState extends State<LoginPage> {
   final _formkey = GlobalKey<FormState>();
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
-  final _auth = FirebaseAuth.instance;
 
+  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
                               Padding(
                                 padding: EdgeInsets.all(1.0),
                                 child: Image.asset(
-                                  "assets/logo.png",
+                                  "assets/logo2.png",
                                   height: 300,
                                   width: 250,
                                 ),
@@ -218,19 +209,20 @@ class _LoginPageState extends State<LoginPage> {
                                 children: [
                                   OutlinedButton(
                                     style: OutlinedButton.styleFrom(
-                                      primary: Colors.grey,
+                                      primary: Colors.black,
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(40)),
+                                              BorderRadius.circular(10)),
                                       //highlightElevation: 0,
-                                      side: BorderSide(color: Colors.grey),
+                                      side: BorderSide(color: Colors.black),
                                     ),
                                     onPressed: () {
-                                      final provider =
-                                          Provider.of<GoogleSignInProvider>(
-                                              context,
-                                              listen: false);
-                                      provider.googleLogin();
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                TrackPackage()),
+                                      );
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.fromLTRB(
@@ -241,16 +233,16 @@ class _LoginPageState extends State<LoginPage> {
                                             MainAxisAlignment.center,
                                         children: const <Widget>[
                                           Image(
-                                              image:
-                                                  AssetImage("assets/img.png"),
+                                              image: AssetImage(
+                                                  "assets/location.png"),
                                               height: 25.0),
                                           Padding(
                                             padding: EdgeInsets.only(left: 10),
                                             child: Text(
-                                              'Sign in with Google',
+                                              'Track Location',
                                               style: TextStyle(
                                                 fontSize: 20,
-                                                color: Colors.grey,
+                                                color: Colors.black,
                                               ),
                                             ),
                                           )
@@ -290,7 +282,7 @@ class _LoginPageState extends State<LoginPage> {
                                 Padding(
                                   padding: EdgeInsets.all(1.0),
                                   child: Image.asset(
-                                    "assets/logo.png",
+                                    "assets/logo2.png",
                                     height: 300,
                                     width: 200,
                                   ),
@@ -460,19 +452,20 @@ class _LoginPageState extends State<LoginPage> {
                                   children: [
                                     OutlinedButton(
                                       style: OutlinedButton.styleFrom(
-                                        primary: Colors.grey,
+                                        primary: Colors.black,
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
-                                                BorderRadius.circular(40)),
+                                                BorderRadius.circular(10)),
                                         //highlightElevation: 0,
-                                        side: BorderSide(color: Colors.grey),
+                                        side: BorderSide(color: Colors.black),
                                       ),
                                       onPressed: () {
-                                        final provider =
-                                            Provider.of<GoogleSignInProvider>(
-                                                context,
-                                                listen: false);
-                                        provider.googleLogin();
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  TrackPackage()),
+                                        );
                                       },
                                       child: Padding(
                                         padding: const EdgeInsets.fromLTRB(
@@ -484,16 +477,16 @@ class _LoginPageState extends State<LoginPage> {
                                           children: const <Widget>[
                                             Image(
                                                 image: AssetImage(
-                                                    "assets/img.png"),
+                                                    "assets/location.png"),
                                                 height: 25.0),
                                             Padding(
                                               padding:
                                                   EdgeInsets.only(left: 10),
                                               child: Text(
-                                                'Sign in with Google',
+                                                'Track Location',
                                                 style: TextStyle(
                                                   fontSize: 20,
-                                                  color: Colors.grey,
+                                                  color: Colors.black,
                                                 ),
                                               ),
                                             )
@@ -523,30 +516,17 @@ class _LoginPageState extends State<LoginPage> {
       //if valid this code block will run
       try {
         UserCredential userCredential =
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,
           password: password,
         );
-        User? user = FirebaseAuth.instance.currentUser;
-        UserModel loggedInUser = UserModel();
-
-        if (email == 'admin@gmail.com' || email == 'admin2@gmail.com') {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Dashboard(email: '', rool: '', id: '',),
-            ),
-          );
-          print("Logged in Successfully with ${email} and $password");
-        } else {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => RoutePage(),
-            ),
-          );
-          print("Logged in Successfully with ${email} and $password");
-        }
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => RoutePage(),
+          ),
+        );
+        print("Logged in Successfully with ${email} and $password");
       }
       //if invalid catch the error
       on FirebaseAuthException catch (e) {

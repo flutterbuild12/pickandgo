@@ -1,46 +1,56 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pickandgo/screens/loginpage.dart';
-import 'package:pickandgo/screens/operationalcenter/dashboard.dart';
-import 'package:pickandgo/screens/operationalcenter/deliverypersons.dart';
-import '../../../databasehelper.dart';
-import '../adminprofile.dart';
-import '../branches.dart';
-import '../orders.dart';
+import 'package:pickandgo/screens/user/sendpackage/receiverdetails.dart';
 
+import '../../../databasehelper.dart';
+import '../homepage.dart';
+import '../makeacall/makeACall.dart';
+import '../profile.dart';
+import '../recievepackage/senderdetails.dart';
+import '../sendpackage/customerPastPackagesList.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
   final padding = EdgeInsets.symmetric(horizontal: 20);
-  final String rool;
+  final String role;
   final String email;
   final String id;
+  final String name;
+  final String mobile;
+  final String address;
 
-  final admin_email = FirebaseAuth.instance.currentUser?.email;
-
-  NavigationDrawerWidget({required this.rool, required this.email, required this.id});
+  NavigationDrawerWidget(
+      {required this.role,
+      required this.email,
+      required this.id,
+      required this.name,
+      required this.mobile,
+      required this.address});
 
   @override
-
   DatabaseHelper _db = DatabaseHelper();
 
   Widget build(BuildContext context) {
-    // final name = 'Admin';
-    // final email = 'admin@pickandgo.lk';
     final urlImage =
         'https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg';
 
     return Drawer(
       child: Material(
-        //color: Color.fromRGBO(50, 75, 205, 1),
         color: Colors.black87,
         child: ListView(
           children: <Widget>[
             buildHeader(
               urlImage: urlImage,
-              name: "Admin",
-              email: "${admin_email}",
+              name: "User",
+              email: "${email}",
               onClicked: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => AdminProfile(id: id, email: email, rool: rool,),
+                builder: (context) => EditCustomerDetails(
+                  uid: id,
+                  name: name,
+                  email: email,
+                  mobile: mobile,
+                  address: address,
+                  role: role,
+                ),
               )),
             ),
             Container(
@@ -51,27 +61,33 @@ class NavigationDrawerWidget extends StatelessWidget {
                   // buildSearchField(),
                   // const SizedBox(height: 24),
                   buildMenuItem(
-                    text: 'Dashboard',
+                    text: 'Home',
                     icon: Icons.dashboard,
                     onClicked: () => selectedItem(context, 0),
                   ),
                   const SizedBox(height: 16),
                   buildMenuItem(
-                    text: 'Orders',
+                    text: 'Send Package',
                     icon: Icons.local_shipping,
                     onClicked: () => selectedItem(context, 1),
                   ),
                   const SizedBox(height: 16),
                   buildMenuItem(
-                    text: 'Delivery Persons',
-                    icon: Icons.people,
+                    text: 'Receive Package',
+                    icon: Icons.call_received_rounded,
                     onClicked: () => selectedItem(context, 2),
                   ),
                   const SizedBox(height: 16),
                   buildMenuItem(
-                    text: 'Branches',
-                    icon: Icons.account_tree_outlined,
+                    text: 'Past Orders',
+                    icon: Icons.check_circle_outline,
                     onClicked: () => selectedItem(context, 3),
+                  ),
+                  const SizedBox(height: 16),
+                  buildMenuItem(
+                    text: 'Make a Call',
+                    icon: Icons.phone,
+                    onClicked: () => selectedItem(context, 4),
                   ),
                   const SizedBox(height: 24),
                   Divider(color: Colors.white70),
@@ -85,7 +101,7 @@ class NavigationDrawerWidget extends StatelessWidget {
                   buildMenuItem(
                     text: 'Logout',
                     icon: Icons.logout,
-                    onClicked: () => selectedItem(context, 4),
+                    onClicked: () => selectedItem(context, 5),
                   ),
                 ],
               ),
@@ -158,25 +174,36 @@ class NavigationDrawerWidget extends StatelessWidget {
     switch (index) {
       case 0:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Dashboard(id: id, email: email, rool: rool,),
+          builder: (context) => Homepage(
+              role: 'role',
+              email: 'email',
+              id: 'id',
+              name: 'name',
+              mobile: 'mobile',
+              address: 'address'),
         ));
         break;
       case 1:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Orders(id: id, email: email, rool: rool,),
+          builder: (context) => ReceiverDetails(),
         ));
         break;
       case 2:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => DeliveryPersons(id: id, email: email, rool: rool,),
+          builder: (context) => SenderDetails(),
         ));
         break;
       case 3:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Branches(id: id, email: email, rool: rool,),
+          builder: (context) => CustomerPastPackagesList(),
         ));
         break;
       case 4:
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => MakeACall(),
+        ));
+        break;
+      case 5:
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => LoginPage(),
         ));

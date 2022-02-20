@@ -2,35 +2,38 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pickandgo/databasehelper.dart';
+import 'package:pickandgo/screens/user/recievepackage/confirmReceiverLocation.dart';
 import 'package:pickandgo/screens/user/sendpackage/confirmCustomerLocation.dart';
 //import 'package:pickandgo/screens/user/sendpackage/connecttodriver.dart';
 import 'package:pickandgo/screens/user/sendpackage/receiverdetails.dart';
 import 'package:pickandgo/services/routingpage.dart';
 import 'package:universal_io/io.dart' as u;
 
-class PackageDetails extends StatefulWidget {
-  final String receiverName;
-  final String receiverEmail;
-  final String receiverAddress;
-  final String receiverPostalCode;
-  final String receiverContactNo;
-  final double dropOffLatitude;
-  final double dropOffLongitude;
+class SenderPackageDetails extends StatefulWidget {
+  final String senderName;
+  final String senderEmail;
+  final String senderAddress;
+  final String senderPostalCode;
+  final String senderContactNo;
+  final double pickUpLatitude;
+  final double pickUpLongitude;
 
-  PackageDetails(
-      this.receiverName,
-      this.receiverEmail,
-      this.receiverAddress,
-      this.receiverPostalCode,
-      this.receiverContactNo,
-      this.dropOffLatitude,
-      this.dropOffLongitude);
+  SenderPackageDetails(
+      this.senderName,
+      this.senderEmail,
+      this.senderAddress,
+      this.senderPostalCode,
+      this.senderContactNo,
+      this.pickUpLatitude,
+      this.pickUpLongitude);
+
+  //const SenderPackageDetails({Key? key}) : super(key: key);
 
   @override
-  _PackageDetailsState createState() => _PackageDetailsState();
+  State<SenderPackageDetails> createState() => _SenderPackageDetailsState();
 }
 
-class _PackageDetailsState extends State<PackageDetails> {
+class _SenderPackageDetailsState extends State<SenderPackageDetails> {
   bool visible = false;
   final _formkey = GlobalKey<FormState>();
   final TextEditingController packageDescController =
@@ -172,7 +175,7 @@ class _PackageDetailsState extends State<PackageDetails> {
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text("Vehicle Type"),
                                     DropdownButton<String>(
@@ -388,14 +391,14 @@ class _PackageDetailsState extends State<PackageDetails> {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  CustomerLocationTrack(
-                                                      widget.receiverName,
-                                                      widget.receiverEmail,
-                                                      widget.receiverAddress,
-                                                      widget.receiverPostalCode,
-                                                      widget.receiverContactNo,
-                                                      widget.dropOffLatitude,
-                                                      widget.dropOffLongitude,
+                                                  ConfirmReceiverLocation(
+                                                      widget.senderName,
+                                                      widget.senderEmail,
+                                                      widget.senderAddress,
+                                                      widget.senderPostalCode,
+                                                      widget.senderContactNo,
+                                                      widget.pickUpLatitude,
+                                                      widget.pickUpLongitude,
                                                       packageDescController
                                                           .text,
                                                       dropdownValue,
@@ -430,7 +433,7 @@ class _PackageDetailsState extends State<PackageDetails> {
                                   height: 20,
                                 ),
                                 Text(
-                                    '${widget.receiverName}, ${widget.receiverEmail}, ${widget.receiverAddress}')
+                                    '${widget.senderName}, ${widget.senderEmail}, ${widget.senderAddress}')
                               ],
                             ),
                           ),
@@ -785,7 +788,7 @@ class _PackageDetailsState extends State<PackageDetails> {
                                     height: 20,
                                   ),
                                   Text(
-                                      '${widget.receiverName}, ${widget.receiverEmail}, ${widget.receiverAddress}')
+                                      '${widget.senderName}, ${widget.senderEmail}, ${widget.senderAddress}')
                                 ],
                               ),
                             ),

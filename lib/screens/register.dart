@@ -55,7 +55,7 @@ class _RegisterState extends State<Register> {
                               Padding(
                                 padding: EdgeInsets.all(1.0),
                                 child: Image.asset(
-                                  "assets/logo.png",
+                                  "assets/logo2.png",
                                   height: 200,
                                   width: 150,
                                 ),
@@ -436,12 +436,11 @@ class _RegisterState extends State<Register> {
                                 Padding(
                                   padding: EdgeInsets.all(1.0),
                                   child: Image.asset(
-                                    "assets/logo.png",
+                                    "assets/logo2.png",
                                     height: 200,
                                     width: 150,
                                   ),
                                 ),
-
                                 Text(
                                   "Register Now",
                                   style: TextStyle(
@@ -701,48 +700,8 @@ class _RegisterState extends State<Register> {
                                 SizedBox(
                                   height: 20,
                                 ),
-                                // Row(
-                                //   mainAxisAlignment: MainAxisAlignment.center,
-                                //   children: [
-                                //     Text(
-                                //       "Rool : ",
-                                //       style: TextStyle(
-                                //         fontSize: 20,
-                                //         fontWeight: FontWeight.bold,
-                                //         color: Colors.white,
-                                //       ),
-                                //     ),
-                                //     // DropdownButton<String>(
-                                //     //   dropdownColor: Colors.blue[900],
-                                //     //   isDense: true,
-                                //     //   isExpanded: false,
-                                //     //   iconEnabledColor: Colors.white,
-                                //     //   focusColor: Colors.white,
-                                //     //   items: options.map((String dropDownStringItem) {
-                                //     //     return DropdownMenuItem<String>(
-                                //     //       value: dropDownStringItem,
-                                //     //       child: Text(
-                                //     //         dropDownStringItem,
-                                //     //         style: TextStyle(
-                                //     //           color: Colors.white,
-                                //     //           fontWeight: FontWeight.bold,
-                                //     //           fontSize: 20,
-                                //     //         ),
-                                //     //       ),
-                                //     //     );
-                                //     //   }).toList(),
-                                //     //   onChanged: (newValueSelected) {
-                                //     //     setState(() {
-                                //     //       _currentItemSelected = newValueSelected!;
-                                //     //       rool = newValueSelected;
-                                //     //     });
-                                //     //   },
-                                //     //   value: _currentItemSelected,
-                                //     // ),
-                                //   ],
-                                // ),
                                 SizedBox(
-                                  height: 20,
+                                  height: 15,
                                 ),
                                 Row(
                                   mainAxisAlignment:
