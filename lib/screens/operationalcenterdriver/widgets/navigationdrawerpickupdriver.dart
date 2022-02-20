@@ -1,47 +1,32 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:pickandgo/screens/pickupdriver/pickuprequests.dart';
 import 'package:pickandgo/screens/loginpage.dart';
-import 'package:pickandgo/screens/operationalcenter/deliverypersons.dart';
+import 'package:pickandgo/screens/operationalcenterdriver/opcdriver_DriverRequests.dart';
+import 'package:pickandgo/screens/operationalcenterdriver/opcdriver_dashboard.dart';
+
 import '../../../databasehelper.dart';
-import '../pickupdriverdashboard.dart';
-import '../pickupdriverprofile.dart';
-import '../pickuppastdeliveries.dart';
-
-
+import '../opcdriver_pastdeliveries.dart';
+import '../opcdriver_profile.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
   final padding = EdgeInsets.symmetric(horizontal: 20);
 
-  final String role;
-  final String email;
   final String id;
-  final String name;
   bool? driveroccupied;
   String? operationalcenterid;
   // final String mobile;
   // final String address;
 
   NavigationDrawerWidget(
-      {
-        required this.role,
-        required this.email,
-        required this.id,
-        required this.name,
-        this.driveroccupied,
-        this.operationalcenterid
-        // required this.mobile,
-        // required this.address
+      {required this.id, this.operationalcenterid, this.driveroccupied
+      // required this.mobile,
+      // required this.address
       });
 
-
-
-
-
   final admin_email = FirebaseAuth.instance.currentUser?.email;
+  final adsmin_email = FirebaseAuth.instance.currentUser?.displayName;
 
   @override
-
   DatabaseHelper _db = DatabaseHelper();
 
   Widget build(BuildContext context) {
@@ -59,10 +44,13 @@ class NavigationDrawerWidget extends StatelessWidget {
           children: <Widget>[
             buildHeader(
               urlImage: urlImage,
-              name: "${name}",
-              email: "${email}",
+              name: "OPC Driver",
+              email: "${admin_email}",
               onClicked: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) =>  PickupDriverProfile(id: id, name: name, email: email, role: role, driveroccupied: driveroccupied, operationalcenterid: operationalcenterid),
+                builder: (context) => OPCDriverProfile(
+                    id: id,
+                    driveroccupied: driveroccupied,
+                    operationalcenterid: operationalcenterid),
               )),
             ),
             Container(
@@ -79,7 +67,7 @@ class NavigationDrawerWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   buildMenuItem(
-                    text: 'Pickup Requests',
+                    text: 'Drop at OPC Requests',
                     icon: Icons.notifications_active,
                     onClicked: () => selectedItem(context, 1),
                   ),
@@ -174,22 +162,37 @@ class NavigationDrawerWidget extends StatelessWidget {
     switch (index) {
       case 0:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => PickupDriverDashboard(name: name, id: id, email: email, role: role, driveroccupied: driveroccupied, operationalcenterid: operationalcenterid),
+          builder: (context) => OPCDriverDashboard(
+            driveroccupied: driveroccupied,
+            operationalcenterid: operationalcenterid,
+            id: id,
+          ),
         ));
         break;
       case 1:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => PickupDriverPickupRequests.driver(name: name, id: id, email: email, role: role, driveroccupied: driveroccupied, operationalcenterid: operationalcenterid),
+          builder: (context) => OperationalCenterDriverRequests(
+            driveroccupiedy: driveroccupied,
+            operationalcenterid: operationalcenterid,
+            id: id,
+          ),
         ));
         break;
       case 2:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => PickupPastDeliveries(id: id, name: name, email: email, role: role, driveroccupied: driveroccupied, operationalcenterid: operationalcenterid),
+          builder: (context) => OPCDriverPastDeliveries(
+            driveroccupied: driveroccupied,
+            operationalcenterid: operationalcenterid,
+            id: id,
+          ),
         ));
         break;
       case 3:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => PickupDriverProfile(id: id, name: name, email: email, role: role, driveroccupied: driveroccupied, operationalcenterid: operationalcenterid),
+          builder: (context) => OPCDriverProfile(
+              id: id,
+              operationalcenterid: operationalcenterid,
+              driveroccupied: driveroccupied),
         ));
         break;
       case 4:
