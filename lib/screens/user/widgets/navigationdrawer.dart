@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pickandgo/screens/loginpage.dart';
+import 'package:pickandgo/screens/user/sendpackage/customerPackagesList.dart';
 import 'package:pickandgo/screens/user/sendpackage/receiverdetails.dart';
 
 import '../../../databasehelper.dart';
@@ -79,15 +80,21 @@ class NavigationDrawerWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   buildMenuItem(
+                    text: 'Onging Orders',
+                    icon: Icons.pending_rounded,
+                    onClicked: () => selectedItem(context, 3),
+                  ),
+                  const SizedBox(height: 16),
+                  buildMenuItem(
                     text: 'Past Orders',
                     icon: Icons.check_circle_outline,
-                    onClicked: () => selectedItem(context, 3),
+                    onClicked: () => selectedItem(context, 4),
                   ),
                   const SizedBox(height: 16),
                   buildMenuItem(
                     text: 'Make a Call',
                     icon: Icons.phone,
-                    onClicked: () => selectedItem(context, 4),
+                    onClicked: () => selectedItem(context, 5),
                   ),
                   const SizedBox(height: 24),
                   Divider(color: Colors.white70),
@@ -101,7 +108,7 @@ class NavigationDrawerWidget extends StatelessWidget {
                   buildMenuItem(
                     text: 'Logout',
                     icon: Icons.logout,
-                    onClicked: () => selectedItem(context, 5),
+                    onClicked: () => selectedItem(context, 6),
                   ),
                 ],
               ),
@@ -195,15 +202,20 @@ class NavigationDrawerWidget extends StatelessWidget {
         break;
       case 3:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => CustomerPastPackagesList(),
+          builder: (context) => ReceivedPackageList(),
         ));
         break;
       case 4:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => MakeACall(),
+          builder: (context) => CustomerPastPackagesList(),
         ));
         break;
       case 5:
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => MakeACall(),
+        ));
+        break;
+      case 6:
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => LoginPage(),
         ));

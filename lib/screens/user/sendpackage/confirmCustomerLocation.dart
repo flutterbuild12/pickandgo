@@ -67,10 +67,11 @@ class CustomerLocationTrack extends StatefulWidget {
   //const CustomerLocationTrack({Key? key}) : super(key: key);
 
   @override
-  State<CustomerLocationTrack> createState() => _CustomerLocationTrackState();
+  State<CustomerLocationTrack> createState() => CustomerLocationTrackState();
 }
 
-class _CustomerLocationTrackState extends State<CustomerLocationTrack> {
+@visibleForTesting
+class CustomerLocationTrackState extends State<CustomerLocationTrack> {
   final loc.Location _location = loc.Location();
   Geolocator geolocator = Geolocator();
 
@@ -156,7 +157,7 @@ class _CustomerLocationTrackState extends State<CustomerLocationTrack> {
 
   late String pickUpAddress;
 
-  _getTotalCost(pickUpLat, pickUpLan) async {
+  getTotalCost(pickUpLat, pickUpLan) async {
     double distanceCostPerKM;
 
     if (widget.packageVehicleType == "Bike") {
@@ -196,7 +197,7 @@ class _CustomerLocationTrackState extends State<CustomerLocationTrack> {
     final loc.LocationData _locationResult = await _location.getLocation();
     var lat = _locationResult.latitude;
     var lan = _locationResult.longitude;
-    _getTotalCost(lat, lan);
+    getTotalCost(lat, lan);
     _setCurrentPosition();
     setState(() {
       _markers.add(
@@ -294,25 +295,6 @@ class _CustomerLocationTrackState extends State<CustomerLocationTrack> {
         'packageWeight': widget.packageWeight,
         'totalCost': totalCost
       }, SetOptions(merge: true));
-
-      print("package inserted successfully...");
-      print("User ID: ${user.uid}");
-      print("Package ID: ${packageID}");
-      print("Vehicle Type: ${widget.packageVehicleType}");
-      print("Operational Center by nearest location (Automatic): ${operationalCenterId}");
-      print("Geocoded - receiver drop off latitude: ${widget.dropOffLatitude}");
-      print("Geocoded - receiver drop off longitude: ${widget.dropOffLongitude}");
-      print("pickup longitude(Automatic): ${customerPickUpLan}");
-      print("pickup latitude(Automatic): ${customerPickUpLat}");
-      print("Total Cost: ${totalCost}");
-      print("Receiver Name: ${widget.receiverName}");
-      print("Package Weight: ${widget.packageWeight}");
-      print("Package Width: ${widget.packageWidth}");
-      print("Package Length: ${widget.packageLength}");
-      print("Package Height: ${widget.packageHeight}");
-
-
-
     } catch (e) {
       print(e);
     }
@@ -359,28 +341,6 @@ class _CustomerLocationTrackState extends State<CustomerLocationTrack> {
         appBar: AppBar(
           title: Text("Confirmation"),
           backgroundColor: Colors.black,
-          actions: [
-            IconButton(
-              icon: Icon(Icons.arrow_forward_ios_rounded),
-              onPressed: () {
-                _getLocation();
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ReceivedPackageList()));
-                //_compareLocation();
-              },
-              //alignment: Alignment.topLeft,
-            ),
-            IconButton(
-              icon: Icon(Icons.pending),
-              onPressed: () {
-                _setCurrentPosition();
-                // _getTotalCost();
-              },
-              //alignment: Alignment.topLeft,
-            ),
-          ],
         ),
         body: Container(
           child: Stack(
@@ -452,7 +412,7 @@ class _CustomerLocationTrackState extends State<CustomerLocationTrack> {
                                     _placeList[index]["description"]);
                             _addressController.text =
                                 _placeList[index]["description"];
-                            _getTotalCost(locations.first.latitude,
+                            getTotalCost(locations.first.latitude,
                                 locations.first.longitude);
                             customerPickUpLat = locations.first.latitude;
                             customerPickUpLan = locations.first.longitude;

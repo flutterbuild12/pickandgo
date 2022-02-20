@@ -189,14 +189,6 @@ class _PickupDriverPickupRequestsState
                                                     //add the user id inside the favourites array
                                                     "pickupreqaccepted": true
                                                   });
-
-                                                  print("Pickup request confirmed, driver id:${widget.id}");
-                                                  print("Pickup request confirmed for package id:${snapshot
-                                                      .data!
-                                                      .docs[index]
-                                                  ['packageid']
-                                                      .toString()}");
-
                                                   FirebaseFirestore
                                                       firebaseFirestore =
                                                       FirebaseFirestore

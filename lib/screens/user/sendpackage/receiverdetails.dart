@@ -308,23 +308,28 @@ class _ReceiverDetailsState extends State<ReceiverDetails> {
                                   itemBuilder: (context, index) {
                                     return InkWell(
                                       onTap: () async {
-                                        /*Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) => zecond(_placeList[index]["description"])));*/
-                                        List<Location> locations =
-                                            await locationFromAddress(
-                                                _placeList[index]
-                                                    ["description"]);
-                                        _controller.text =
-                                            _placeList[index]["description"];
-                                        dropOffLatitude =
-                                            locations.first.latitude;
-                                        dropOffLongitude =
-                                            locations.first.longitude;
-                                        print(
-                                            "Latitude is: ${locations.first.latitude}");
-                                        print(
-                                            "Longitude is: ${locations.first.longitude}");
+                                        try {
+                                          List<Location> locations =
+                                              await locationFromAddress(
+                                                  _placeList[index]
+                                                      ["description"]);
+                                          _controller.text =
+                                              _placeList[index]["description"];
+                                          dropOffLatitude =
+                                              locations.first.latitude;
+                                          dropOffLongitude =
+                                              locations.first.longitude;
+                                          print(
+                                              "Latitude is: ${locations.first.latitude}");
+                                          print(
+                                              "Longitude is: ${locations.first.longitude}");
+                                        } on Exception catch (e) {
+                                          // Anything else that is an exception
+                                          print('Unknown exception: $e');
+                                        } catch (e) {
+                                          // No specified type, handles all
+                                          print('Something really unknown: $e');
+                                        }
                                       },
                                       child: ListTile(
                                         title: Text(

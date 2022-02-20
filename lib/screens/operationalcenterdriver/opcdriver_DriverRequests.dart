@@ -3,19 +3,19 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:pickandgo/databasehelper.dart';
+import 'package:pickandgo/screens/operationalcenterdriver/opcdriver_DriverPackagesDropped.dart';
 import 'package:pickandgo/screens/operationalcenterdriver/widgets/navigationdrawerpickupdriver.dart';
 import 'package:universal_io/io.dart' as u;
 
 class OperationalCenterDriverRequests extends StatefulWidget {
   final String id;
-
   bool? driveroccupiedy;
   String? operationalcenterid;
 
   OperationalCenterDriverRequests({
     required this.id,
-    required this.operationalcenterid,
     required this.driveroccupiedy,
+    required this.operationalcenterid,
   });
   //const OperationalCenterDriverRequests({Key? key}) : super(key: key);
 
@@ -175,6 +175,19 @@ class _OperationalCenterDriverRequestsState
                                                               "The user document does not exist ");
                                                         }
                                                       });
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  OperationalCenterDriverPackagesDropped(
+                                                                    id: widget
+                                                                        .id,
+                                                                    driveroccupiedy:
+                                                                        driveroccupied,
+                                                                    operationalcenterid:
+                                                                        widget
+                                                                            .operationalcenterid,
+                                                                  )));
                                                     },
                                                   )
                                                 ],

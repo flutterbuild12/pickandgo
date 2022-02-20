@@ -93,7 +93,7 @@ class _PastPackageDetailsState extends State<PastPackageDetails> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "Sender Details",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
@@ -111,10 +111,10 @@ class _PastPackageDetailsState extends State<PastPackageDetails> {
                           SizedBox(
                             height: 35,
                           ),
-                          Text("Receiver Details",
+                          const Text("Receiver Details",
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold)),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           Column(
@@ -122,43 +122,43 @@ class _PastPackageDetailsState extends State<PastPackageDetails> {
                             children: [
                               Text("Receiver Name - ${receiverName}",
                                   style: TextStyle(fontSize: 14)),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               Text("Receiver Email - ${receiverEmail}",
                                   style: TextStyle(fontSize: 14)),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               Text(
                                   "Receiver Contact Number - ${receiverContactNumber}",
                                   style: TextStyle(fontSize: 14)),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               Text("Receiver Address - ${receiverAddress}",
                                   style: TextStyle(fontSize: 14)),
-                              SizedBox(
+                              const SizedBox(
                                 height: 35,
                               ),
-                              Text("Receiver Photo",
+                              const Text("Receiver Photo",
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold)),
-                              SizedBox(
+                              const SizedBox(
                                 height: 15,
                               ),
                               Align(
                                   alignment: Alignment.center,
                                   child: Image.network(receiverPhoto)),
-                              SizedBox(
+                              const SizedBox(
                                 height: 35,
                               ),
-                              Text("Receiver Signature",
+                              const Text("Receiver Signature",
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold)),
-                              SizedBox(
+                              const SizedBox(
                                 height: 15,
                               ),
                               Align(

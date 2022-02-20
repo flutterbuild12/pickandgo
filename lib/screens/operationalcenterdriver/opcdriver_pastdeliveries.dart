@@ -1,13 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:pickandgo/databasehelper.dart';
-import 'package:pickandgo/screens/operationalcenterdriver/operationalcenterdriverviewpastdeliveriesdetails.dart';
 import 'package:pickandgo/screens/operationalcenterdriver/widgets/navigationdrawerpickupdriver.dart';
 import 'package:universal_io/io.dart' as u;
 
 class OPCDriverPastDeliveries extends StatefulWidget {
-
-
   final String id;
 
   bool? driveroccupied;
@@ -25,18 +22,6 @@ class OPCDriverPastDeliveries extends StatefulWidget {
 
 class _OPCDriverPastDeliveriesState extends State<OPCDriverPastDeliveries> {
   DatabaseHelper _db = DatabaseHelper();
-  bool _isLoading = true;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    Future.delayed(Duration(seconds: 2), () {
-      setState(() {
-        _isLoading = false;
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +37,7 @@ class _OPCDriverPastDeliveriesState extends State<OPCDriverPastDeliveries> {
                 backgroundColor: Colors.black87,
                 title: Text('Pick&GO - OP-Center Delivery'),
               ),
-              body: _isLoading
-                  ? Center(child: CircularProgressIndicator())
-                  :
-              Container(
+              body: Container(
                 color: Colors.white,
                 child: Column(children: [
                   const SizedBox(
@@ -87,14 +69,12 @@ class _OPCDriverPastDeliveriesState extends State<OPCDriverPastDeliveries> {
                           .collection('package')
                           .where('packageDroppedOperationalCenter',
                               isEqualTo: true)
-                          .where('operationalCenterDriverId',
-                          isEqualTo: widget.id)
-                         // .where('toOperationalCenterId', isNotEqualTo: "")
+                          .where('toOperationalCenterId', isNotEqualTo: "")
                           .snapshots(),
                       builder:
                           (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                         if (!snapshot.hasData) {
-                          return Center(child: Text("No data"));
+                          return Center(child: CircularProgressIndicator());
                         }
                         return ListView.builder(
                             itemCount: snapshot.data?.docs.length,
@@ -130,15 +110,6 @@ class _OPCDriverPastDeliveriesState extends State<OPCDriverPastDeliveries> {
                                       icon: const Icon(Icons.arrow_forward),
                                       onPressed: () {
                                         /* Your code */
-
-                                        Navigator.of(context).push(MaterialPageRoute(
-                                            builder: (context) =>
-                                            // TaskCardWidget(id: user.id, name: user.ingredients,)
-                                            OperationalCenterDriverPastOrderDetails(
-                                                widget.id,snapshot.data!.docs[index]['packageid']
-                                                .toString()
-
-                                            )));
                                       },
                                     )
                                   ],

@@ -1,19 +1,20 @@
 //import 'package:firebase/firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:pickandgo/screens/operationalcenterdriver/opcdriver_DriverRequests.dart';
+import 'package:pickandgo/screens/operationalcenterdriver/opcdriver_dashboard.dart';
 import 'package:pickandgo/screens/operationalcenterdriver/widgets/navigationdrawerpickupdriver.dart';
 import 'package:universal_io/io.dart' as u;
 
 class OperationalCenterDriverPackagesDropped extends StatefulWidget {
   final String id;
-
   bool? driveroccupiedy;
   String? operationalcenterid;
 
   OperationalCenterDriverPackagesDropped({
     required this.id,
-    required this.operationalcenterid,
     required this.driveroccupiedy,
+    required this.operationalcenterid,
   });
   //const OperationalCenterDriverPackagesDropped({Key? key}) : super(key: key);
 
@@ -78,6 +79,12 @@ class _OperationalCenterDriverPackagesDroppedState
               child: MaterialButton(
                   onPressed: () {
                     _updatePackagesDropped();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => OPCDriverDashboard(
+                                  id: widget.id,
+                                )));
                   },
                   minWidth: 160,
                   shape: const RoundedRectangleBorder(
